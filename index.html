@@ -1,109 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday ✨</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ✨</title>
 
-    body {
-      height: 100vh;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-      overflow: hidden;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
-    .card {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 30px 25px;
-      max-width: 350px;
-      animation: fadeIn 2s ease;
-    }
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+}
 
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
+.screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
 
-    h2 {
-      font-size: 18px;
-      font-weight: 400;
-      opacity: 0.9;
-      margin-bottom: 20px;
-    }
+.screen.active {
+  opacity: 1;
+  pointer-events: all;
+}
 
-    p {
-      font-size: 15px;
-      line-height: 1.6;
-      opacity: 0.95;
-    }
+button {
+  margin-top: 25px;
+  padding: 12px 26px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  color: #203a43;
+  cursor: pointer;
+}
 
-    .from {
-      margin-top: 25px;
-      font-size: 14px;
-      opacity: 0.8;
-    }
+.card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 350px;
+  animation: float 3s ease-in-out infinite;
+}
 
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      animation: twinkle 3s infinite;
-    }
+h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+p {
+  font-size: 15px;
+  line-height: 1.6;
+}
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 1; }
-    }
-  </style>
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+  0%,100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+</style>
 </head>
+
 <body>
 
+<!-- SCREEN 1 -->
+<div class="screen active" id="screen1">
+  <h1>Hey you 🌙</h1>
+  <p>I made something small for you</p>
+  <button onclick="next(1)">Click to open ✨</button>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen" id="screen2">
   <div class="card">
     <h1>Happy Birthday 🎂</h1>
-    <h2>To someone truly special</h2>
-
     <p>
-      I know we haven’t met yet,  
-      but talking to you has genuinely been one of the nicest parts of my days.  
-      <br><br>
-      I hope today brings you calm, smiles, and little moments that stay with you.
+      Even though we haven’t met yet,<br>
+      talking to you has genuinely been one of the nicest parts of my days.<br><br>
+      I hope today brings you warmth, calm, and reasons to smile.
       You deserve a really beautiful year ahead ✨
     </p>
-
-    <div class="from">
-      — From someone who’s glad he met you 🌙
-    </div>
+    <button onclick="next(2)">One more thing 💫</button>
   </div>
+</div>
 
-  <script>
-    for (let i = 0; i < 40; i++) {
-      const star = document.createElement("div");
-      star.className = "star";
-      star.style.top = Math.random() * 100 + "vh";
-      star.style.left = Math.random() * 100 + "vw";
-      star.style.animationDuration = 2 + Math.random() * 3 + "s";
-      document.body.appendChild(star);
-    }
-  </script>
+<!-- SCREEN 3 -->
+<div class="screen" id="screen3">
+  <div class="card">
+    <h1>That’s all 🤍</h1>
+    <p>
+      Thank you for being you.<br>
+      And for existing exactly the way you do.
+    </p>
+  </div>
+</div>
+
+<script>
+function next(n) {
+  document.getElementById("screen" + n).classList.remove("active");
+  document.getElementById("screen" + (n + 1)).classList.add("active");
+}
+
+for (let i = 0; i < 50; i++) {
+  const star = document.createElement("div");
+  star.className = "star";
+  star.style.top = Math.random() * 100 + "vh";
+  star.style.left = Math.random() * 100 + "vw";
+  star.style.animationDuration = 2 + Math.random() * 3 + "s";
+  document.body.appendChild(star);
+}
+</script>
 
 </body>
 </html>
