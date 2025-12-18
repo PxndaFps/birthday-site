@@ -3,92 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday ✨</title>
+<title>For You ✨</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+  height:100vh;
+  background:radial-gradient(circle at top,#1b2735,#090a0f);
+  overflow:hidden;
+  color:white;
 }
 
-body {
-  height: 100vh;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  color: white;
+/* Screens */
+.screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  transition:opacity 1.3s ease;
+}
+.hidden{opacity:0;pointer-events:none}
+
+/* Start screen */
+#start h1{
+  font-size:34px;
+  letter-spacing:1px;
+  animation:pulse 2.8s infinite;
+}
+#start p{opacity:.75;margin-top:12px}
+
+@keyframes pulse{
+  0%{opacity:.5}
+  50%{opacity:1}
+  100%{opacity:.5}
 }
 
-.screen {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 1s ease;
+/* Stars */
+.star{
+  position:absolute;
+  width:2px;height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:.8;
+  animation:twinkle 3s infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.3}
+  50%{opacity:1}
 }
 
-.screen.active {
-  opacity: 1;
-  pointer-events: all;
+/* Shooting stars */
+.shoot{
+  position:absolute;
+  width:140px;
+  height:1px;
+  background:linear-gradient(90deg,white,transparent);
+  opacity:.8;
+  animation:shoot 2s linear forwards;
+}
+@keyframes shoot{
+  from{transform:translate(-10vw,-10vh)}
+  to{transform:translate(120vw,120vh)}
 }
 
-button {
-  margin-top: 25px;
-  padding: 12px 26px;
-  font-size: 16px;
-  border: none;
-  border-radius: 30px;
-  background: white;
-  color: #203a43;
-  cursor: pointer;
+/* Card */
+.card{
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(18px);
+  padding:38px;
+  border-radius:28px;
+  max-width:370px;
+  box-shadow:0 0 60px rgba(255,255,255,.08);
 }
 
-.card {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 30px;
-  max-width: 350px;
-  animation: float 3s ease-in-out infinite;
+h1{margin-bottom:14px}
+
+#typed{
+  font-size:16px;
+  line-height:1.85;
+  white-space:pre-line;
 }
 
-h1 {
-  font-size: 28px;
-  margin-bottom: 15px;
+button{
+  margin-top:26px;
+  padding:12px 32px;
+  border:none;
+  border-radius:40px;
+  background:white;
+  color:#111;
+  font-size:15px;
 }
 
-p {
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
-}
-
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  animation: twinkle 3s infinite;
-}
-
-@keyframes twinkle {
-  0%,100% { opacity: 0.2; }
-  50% { opacity: 1; }
+/* Constellation name */
+#name{
+  font-size:28px;
+  letter-spacing:3px;
+  margin-bottom:18px;
+  text-shadow:0 0 12px rgba(255,255,255,.7);
 }
 </style>
 </head>
@@ -96,51 +111,85 @@ p {
 <body>
 
 <!-- SCREEN 1 -->
-<div class="screen active" id="screen1">
-  <h1>Hey you 🌙</h1>
-  <p>I made something small for you</p>
-  <button onclick="next(1)">Click to open ✨</button>
+<div class="screen" id="start">
+  <h1>Look up 🌙</h1>
+  <p>The night has something for you</p>
 </div>
 
 <!-- SCREEN 2 -->
-<div class="screen" id="screen2">
+<div class="screen hidden" id="msg">
   <div class="card">
-    <h1>Happy Birthday 🎂</h1>
-    <p>
-      Even though we haven’t met yet,<br>
-      talking to you has genuinely been one of the nicest parts of my days.<br><br>
-      I hope today brings you warmth, calm, and reasons to smile.
-      You deserve a really beautiful year ahead ✨
-    </p>
-    <button onclick="next(2)">One more thing 💫</button>
+    <div id="name">HER NAME</div> <!-- 👈 CHANGE THIS -->
+    <p id="typed"></p>
+    <button onclick="next()">One last star 🌠</button>
   </div>
 </div>
 
 <!-- SCREEN 3 -->
-<div class="screen" id="screen3">
+<div class="screen hidden" id="end">
   <div class="card">
-    <h1>That’s all 🤍</h1>
+    <h1>🌌</h1>
     <p>
-      Thank you for being you.<br>
-      And for existing exactly the way you do.
+      Some people feel like constellations.<br>
+      Quiet. Distant.<br>
+      Yet impossible to forget.
     </p>
   </div>
 </div>
 
 <script>
-function next(n) {
-  document.getElementById("screen" + n).classList.remove("active");
-  document.getElementById("screen" + (n + 1)).classList.add("active");
+/* Message */
+const text=`Even though we haven’t met yet,
+talking to you has felt like
+quiet conversations under a starry sky.
+
+I hope this year brings you
+peace, wonder, and moments
+that glow softly in your memory.
+
+You deserve a beautiful night,
+and an even more beautiful year ✨`;
+
+let i=0;
+
+document.body.onclick=()=>{
+  document.getElementById('start').classList.add('hidden');
+  document.getElementById('msg').classList.remove('hidden');
+  type();
+  document.body.onclick=null;
 }
 
-for (let i = 0; i < 50; i++) {
-  const star = document.createElement("div");
-  star.className = "star";
-  star.style.top = Math.random() * 100 + "vh";
-  star.style.left = Math.random() * 100 + "vw";
-  star.style.animationDuration = 2 + Math.random() * 3 + "s";
-  document.body.appendChild(star);
+function type(){
+  if(i<text.length){
+    document.getElementById('typed').innerText+=text[i++];
+    setTimeout(type,38);
+  }
 }
+
+function next(){
+  document.getElementById('msg').classList.add('hidden');
+  document.getElementById('end').classList.remove('hidden');
+}
+
+/* Stars */
+for(let i=0;i<140;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  s.style.top=Math.random()*100+'vh';
+  s.style.left=Math.random()*100+'vw';
+  s.style.animationDuration=2+Math.random()*4+'s';
+  document.body.appendChild(s);
+}
+
+/* Shooting stars */
+setInterval(()=>{
+  const sh=document.createElement('div');
+  sh.className='shoot';
+  sh.style.top=Math.random()*30+'vh';
+  sh.style.left='-20vw';
+  document.body.appendChild(sh);
+  setTimeout(()=>sh.remove(),2000);
+},4500);
 </script>
 
 </body>
