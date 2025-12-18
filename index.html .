@@ -24,23 +24,9 @@ body{
   align-items:center;
   justify-content:center;
   text-align:center;
-  transition:opacity 1.3s ease;
+  transition:opacity 1.2s ease;
 }
 .hidden{opacity:0;pointer-events:none}
-
-/* Start screen */
-#start h1{
-  font-size:34px;
-  letter-spacing:1px;
-  animation:pulse 2.8s infinite;
-}
-#start p{opacity:.75;margin-top:12px}
-
-@keyframes pulse{
-  0%{opacity:.5}
-  50%{opacity:1}
-  100%{opacity:.5}
-}
 
 /* Stars */
 .star{
@@ -56,7 +42,7 @@ body{
   50%{opacity:1}
 }
 
-/* Shooting stars */
+/* Shooting star */
 .shoot{
   position:absolute;
   width:140px;
@@ -98,12 +84,12 @@ button{
   font-size:15px;
 }
 
-/* Constellation name */
+/* Name glow */
 #name{
   font-size:28px;
   letter-spacing:3px;
   margin-bottom:18px;
-  text-shadow:0 0 12px rgba(255,255,255,.7);
+  text-shadow:0 0 14px rgba(255,255,255,.7);
 }
 </style>
 </head>
@@ -111,64 +97,70 @@ button{
 <body>
 
 <!-- SCREEN 1 -->
-<div class="screen" id="start">
-  <h1>Look up 🌙</h1>
-  <p>The night has something for you</p>
+<div class="screen" id="s1">
+  <h1>Here’s a surprise 🌙</h1>
+  <p>Tap to open</p>
 </div>
 
 <!-- SCREEN 2 -->
-<div class="screen hidden" id="msg">
-  <div class="card">
-    <div id="name">Tanvi</div> <!-- 👈 CHANGE THIS -->
-    <p id="typed"></p>
-    <button onclick="next()">One last star 🌠</button>
-  </div>
+<div class="screen hidden" id="s2">
+  <h1>Happy Birthday ✨</h1>
+  <p>Tonight feels a little special</p>
+  <button onclick="go(2)">Continue 🌠</button>
 </div>
 
 <!-- SCREEN 3 -->
-<div class="screen hidden" id="end">
+<div class="screen hidden" id="s3">
   <div class="card">
-    <h1>🌌</h1>
+    <div id="name">Tanvi</div> <!-- CHANGE NAME -->
+    <p id="typed"></p>
+    <button onclick="go(3)">One last thing </button>
+  </div>
+</div>
+
+<!-- SCREEN 4 -->
+<div class="screen hidden" id="s4">
+  <div class="card">
+    <h1>Thank you 🌌</h1>
     <p>
-      Some people feel like constellations.<br>
-      Quiet. Distant.<br>
-      Yet impossible to forget.
+      For existing.<br>
+      For being you.<br>
+      For making nights feel softer.
     </p>
   </div>
 </div>
 
 <script>
-/* Message */
+/* Message text */
 const text=`Even though we haven’t met yet,
-talking to you was good.
-
+talking with you has been good.
 
 I hope this year brings you
 peace, wonder, and moments
 that glow softly in your memory.
 
-Happy birthday tanvi 
+Happy birthday tanvi,
 and an even more beautiful year ✨`;
 
 let i=0;
 
-document.body.onclick=()=>{
-  document.getElementById('start').classList.add('hidden');
-  document.getElementById('msg').classList.remove('hidden');
-  type();
-  document.body.onclick=null;
+/* Navigation */
+document.getElementById('s1').onclick=()=>{
+  go(1);
 }
 
+function go(n){
+  document.getElementById('s'+n).classList.add('hidden');
+  document.getElementById('s'+(n+1)).classList.remove('hidden');
+  if(n===2) type();
+}
+
+/* Typing effect */
 function type(){
   if(i<text.length){
     document.getElementById('typed').innerText+=text[i++];
     setTimeout(type,38);
   }
-}
-
-function next(){
-  document.getElementById('msg').classList.add('hidden');
-  document.getElementById('end').classList.remove('hidden');
 }
 
 /* Stars */
